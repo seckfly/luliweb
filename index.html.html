@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Web para mi Luli preciosa💗💗</title>
+
+<style>
+  :root{ --card-max: 600px; }
+  *{ box-sizing: border-box; }
+
+  body{
+    margin:0;
+    min-height: 100vh;
+    min-height: 100svh;
+    min-height: 100dvh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-family:'Segoe UI', sans-serif;
+    background: linear-gradient(135deg,#ffe6f0,#ffd6ec,#fff0f6);
+    overflow:hidden;
+
+    padding:
+      calc(16px + env(safe-area-inset-top))
+      calc(16px + env(safe-area-inset-right))
+      calc(16px + env(safe-area-inset-bottom))
+      calc(16px + env(safe-area-inset-left));
+  }
+
+  /* brillo suave */
+  body::before{
+    content:"";
+    position:fixed;
+    inset:-40%;
+    background:
+      radial-gradient(circle at 30% 30%, rgba(255,77,136,.22), transparent 45%),
+      radial-gradient(circle at 70% 60%, rgba(255,214,236,.55), transparent 50%),
+      radial-gradient(circle at 40% 80%, rgba(255,240,246,.85), transparent 45%);
+    filter: blur(18px);
+    animation: glowMove 10s ease-in-out infinite alternate;
+    pointer-events:none;
+  }
+  @keyframes glowMove{
+    from{ transform: translate3d(-2%, -1%, 0) scale(1.02); }
+    to  { transform: translate3d( 2%,  1%, 0) scale(1.06); }
+  }
+
+  /* TARJETA */
+  .card{
+    position: relative;
+    background: rgba(255,255,255,.92);
+    width: min(92vw, var(--card-max));
+    max-width: var(--card-max);
+    padding: clamp(22px, 5vw, 50px) clamp(18px, 4vw, 35px);
+    border-radius: 30px;
+    text-align:center;
+
+    box-shadow:
+      0 22px 70px rgba(255,105,180,.22),
+      0 2px 0 rgba(255,255,255,.7) inset;
+
+    border: 1px solid rgba(255,255,255,.65);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    max-height: calc(100svh - 32px);
+    overflow:auto;
+    -webkit-overflow-scrolling: touch;
+
+    animation: cardIn .9s cubic-bezier(.2, .9, .2, 1) both;
+    transform-origin: 50% 60%;
+  }
+
+  @keyframes cardIn{
+    0%   { opacity:0; transform: translateY(18px) scale(.97); filter: blur(6px); }
+    65%  { opacity:1; transform: translateY(0) scale(1.02);  filter: blur(0); }
+    100% { opacity:1; transform: translateY(0) scale(1); }
+  }
+
+  /* “pop” */
+  .card.pop{
+    animation: pop .55s cubic-bezier(.2, .9, .2, 1) both;
+  }
+  @keyframes pop{
+    0%{ transform: scale(1); }
+    45%{ transform: scale(1.03); }
+    100%{ transform: scale(1); }
+  }
+
+  /* Cinemático: fundido + ligero zoom */
+  .card.cinematic-out{
+    animation: cinematicOut .55s ease forwards;
+  }
+  @keyframes cinematicOut{
+    from{ opacity:1; transform: translateY(0) scale(1); filter: blur(0); }
+    to  { opacity:0; transform: translateY(6px) scale(.985); filter: blur(6px); }
+  }
+  .card.cinematic-in{
+    animation: cinematicIn .75s cubic-bezier(.2, .9, .2, 1) forwards;
+  }
+  @keyframes cinematicIn{
+    from{ opacity:0; transform: translateY(10px) scale(.985); filter: blur(8px); }
+    70% { opacity:1; transform: translateY(0) scale(1.01); filter: blur(0); }
+    to  { opacity:1; transform: translateY(0) scale(1); }
+  }
+
+  h1{
+    font-size: clamp(26px, 5.5vw, 38px);
+    margin: 10px 0 14px;
+    line-height: 1.15;
+    word-break: break-word;
+  }
+
+  p{
+    font-size: clamp(16px, 4.2vw, 22px);
+    color:#666;
+    margin:0 0 10px;
+    line-height: 1.35;
+    word-break: break-word;
+  }
+
+  /* BOTONES */
+  .buttons{
+    margin-top: 24px;
+    display:flex;
+    gap: 12px;
+    justify-content:center;
+    flex-wrap: wrap;
+  }
+
+  button{
+    border:none;
+    padding: 14px 20px;
+    font-size: clamp(16px, 4.2vw, 20px);
+    border-radius:14px;
+    cursor:pointer;
+    transition: transform .18s ease, filter .18s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    will-change: transform;
+  }
+
+  button:active{
+    transform: scale(.98);
+    filter: brightness(.98);
+  }
+
+  #yes{
+    background:#ff4d88;
+    color:white;
+    box-shadow: 0 14px 30px rgba(255,77,136,.26);
+  }
+
+  #no{
+    background:#eee;
+  }
+
+  @media (hover:hover){
+    #yes:hover{ transform:scale(1.04); }
+    #no:hover{ transform:scale(1.02); }
+  }
+
+  @media (max-width: 430px){
+    button{
+      width: 100%;
+      max-width: 320px;
+    }
+  }
+
+  /* CORAZONES */
+  .heart{
+    position:absolute;
+    bottom:-50px;
+    font-size:22px;
+    animation: float linear infinite, wiggle 1.8s ease-in-out infinite;
+    opacity:.95;
+    pointer-events:none;
+    filter: drop-shadow(0 6px 12px rgba(255,105,180,.15));
+  }
+
+  @keyframes float{
+    to{ transform:translateY(-120vh); opacity:0; }
+  }
+  @keyframes wiggle{
+    0%,100%{ margin-left: 0; }
+    50%{ margin-left: 10px; }
+  }
+
+  .confetti{
+    position:absolute;
+    font-size:20px;
+    animation:confetti 3s linear forwards;
+    pointer-events:none;
+  }
+  @keyframes confetti{
+    to{ transform:translateY(100vh) rotate(720deg); opacity:0; }
+  }
+
+  .gif{ margin-top: 18px; width: 100%; }
+</style>
+</head>
+
+<body>
+
+<!-- MÚSICA (pon tu archivo mp3 en la misma carpeta y cambia el src) -->
+<audio id="bgm" preload="auto" loop>
+  <!-- Ejemplo: <source src="cancion.mp3" type="audio/mpeg"> -->
+  <source src="cancion.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card" id="card">
+  <p>Hola mi Luli preciosa 💕</p>
+  <h1>Me encantaría preguntarte algo…</h1>
+  <p>¿Quisieras ser mi San Valentín? 🩷</p>
+
+  <div class="buttons">
+    <button id="yes">🩷 Sí</button>
+    <button id="no">No 🙁</button>
+  </div>
+</div>
+
+<script>
+  /* Corazones flotando */
+  function createHeart(){
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "🩷";
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.animationDuration = (4 + Math.random()*4) + "s";
+    heart.style.fontSize = (18 + Math.random()*18) + "px";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(), 8000);
+  }
+  setInterval(createHeart, 420);
+
+  /* Música: en iPhone solo arranca con gesto del usuario */
+  const bgm = document.getElementById("bgm");
+  let musicStarted = false;
+  function startMusic(){
+    if(musicStarted) return;
+    musicStarted = true;
+    bgm.volume = 0.9;
+    const p = bgm.play();
+    if(p && typeof p.catch === "function"){ p.catch(()=>{}); }
+  }
+
+  /* Botones */
+  let scale = 1;
+  let noCount = 0;
+
+  const card = document.getElementById("card");
+  const yesBtn = document.getElementById("yes");
+  const noBtn  = document.getElementById("no");
+  const title  = document.querySelector("h1");
+
+  const phrases = [
+    "Te equivocaste de botón 😛",
+    "Te volviste a equivocar de botón, dale que sí 😛",
+    "Es el botón de la izquierda, no el de la derecha, tú puedes 🩷 😛",
+    "EHH PORFAVOR DALE AL BOTÓN MI AMOR 🤨"
+  ];
+
+  /* Botón NO se mueve (iPhone: touchstart, PC: mouseenter) */
+  function moveNoButton(){
+    // inicia música con cualquier interacción (si quieres que suene incluso antes del Sí)
+    startMusic();
+
+    // si el botón está a ancho completo (móvil), lo movemos SOLO horizontal un poquito
+    const isMobile = window.matchMedia("(max-width: 430px)").matches;
+    const dx = isMobile ? (Math.random()*120 - 60) : (Math.random()*260 - 130);
+    const dy = isMobile ? (Math.random()*40 - 20)  : (Math.random()*160 - 80);
+
+    // mover con transform para que sea suave y no rompa layout
+    noBtn.style.transform = `translate(${dx}px, ${dy}px)`;
+
+    // además: cambia el título según tu lógica original
+    noCount++;
+    scale += 0.15;
+    yesBtn.style.transform = `scale(${scale})`;
+    const idx = Math.min(noCount - 1, phrases.length - 1);
+    title.textContent = phrases[idx];
+  }
+
+  noBtn.addEventListener("touchstart", (e) => {
+    e.preventDefault(); // evita que el toque “cierre” la acción y permite huir
+    moveNoButton();
+  }, { passive: false });
+
+  noBtn.addEventListener("mouseenter", () => {
+    moveNoButton();
+  });
+
+  // fallback por si logran tocar/clickear
+  noBtn.onclick = () => moveNoButton();
+
+  /* Botón SÍ: cinematic + confetti + gif + música */
+  yesBtn.onclick = () => {
+    startMusic();
+
+    // salida cinematográfica
+    card.classList.remove("cinematic-in");
+    card.classList.add("cinematic-out");
+
+    setTimeout(() => {
+      // Cambia el contenido (tus textos intactos)
+      card.innerHTML = `
+        <h1>Sabía que dirías que sí 😛🩷</h1>
+        <p>Te amo muchísimo, amor de mi vida 💕</p>
+        <p>Sé que pasaremos un día muy lindo juntos. Te amo, mi vida.</p>
+
+        <div class="gif">
+          <div class="tenor-gif-embed" data-postid="17428017294287826031" data-share-method="host" data-aspect-ratio="1.16822" data-width="100%">
+            <a href="https://tenor.com/view/hello-kitty-daniel-hk-hello-kitty-and-friends-love-you-gif-17428017294287826031">Hello Kitty Daniel Sticker</a>from
+            <a href="https://tenor.com/search/hello+kitty-stickers">Hello Kitty Stickers</a>
+          </div>
+        </div>
+      `;
+
+      // entrada cinematográfica
+      card.classList.remove("cinematic-out");
+      void card.offsetWidth;
+      card.classList.add("cinematic-in");
+
+      // cargar Tenor luego de insertar
+      const script = document.createElement("script");
+      script.src = "https://tenor.com/embed.js";
+      script.async = true;
+      document.body.appendChild(script);
+
+      // confetti (menos en móvil)
+      const isMobile = window.matchMedia("(max-width: 430px)").matches;
+      const total = isMobile ? 70 : 120;
+
+      for(let i=0; i<total; i++){
+        const conf = document.createElement("div");
+        conf.className = "confetti";
+        conf.innerHTML = "🩷";
+        conf.style.left = Math.random()*100 + "vw";
+        conf.style.top  = "-20px";
+        conf.style.animationDuration = (2 + Math.random()*2) + "s";
+        document.body.appendChild(conf);
+        setTimeout(()=>conf.remove(), 3000);
+      }
+    }, 520);
+  };
+
+  // si quieres que la música se intente iniciar con el primer toque en pantalla:
+  document.addEventListener("touchstart", startMusic, { once: true, passive: true });
+</script>
+
+</body>
+</html>
